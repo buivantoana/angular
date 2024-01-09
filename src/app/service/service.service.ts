@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ServiceService {
-  private api = 'http://localhost:3000/product';
+  private api = 'https://fakestoreapi.com/products';
 
   constructor(private http: HttpClient) {}
 
