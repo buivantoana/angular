@@ -1,0 +1,122 @@
+<app-header />
+<div class="">
+  <button
+    (click)="toggleModal()"
+    data-modal-target="static-modal"
+    data-modal-toggle="static-modal"
+    class="block my-6 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+    type="button"
+  >
+    Add Product
+  </button>
+
+  <form
+    [ngClass]="{ modal: isModalVisible, hidden: !isModalVisible }"
+    [formGroup]="userForm"
+    (ngSubmit)="onSubmit()"
+    class="w-[800px] mx-auto"
+  >
+    <div class="flex gap-4">
+      <div class="mb-5 w-[50%]">
+        <label
+          for="title"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Your Title</label
+        >
+        <input
+          formControlName="title"
+          type="title"
+          id="title"
+          class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+          required
+        />
+        <!-- <span style="color: red;">{{userForm.controls.title.status}}</span> -->
+      </div>
+      <div class="mb-5 w-[50%]">
+        <label
+          for="price"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Your Price</label
+        >
+        <input
+          formControlName="price"
+          type="number"
+          id="price"
+          class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+          required
+        />
+      </div>
+    </div>
+    <div class="flex gap-4">
+      <div class="mb-5 w-[50%]">
+        <label
+          for="image"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Your Image</label
+        >
+        <input
+          formControlName="image"
+          type="text"
+          id="image"
+          class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+          required
+        />
+      </div>
+      <div class="mb-5 w-[50%]">
+        <label
+          for="countries"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Select Category
+        </label>
+        <select
+          formControlName="category"
+          id="category"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        >
+          <option value="electronics">electronics</option>
+          <option value="jewelery">jewelery</option>
+          <option value="men's clothing">men's clothing</option>
+          <option value="women's clothing">women's clothing</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="mb-5">
+      <label
+        for="decs"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+        >Your Description</label
+      >
+      <input
+        formControlName="description"
+        type="text"
+        id="description"
+        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+        required
+      />
+    </div>
+
+    <button
+      type="submit"
+      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+    >
+      Add
+    </button>
+    <span
+      (click)="toggleModal()"
+      class="text-white bg-[grey] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+    >
+      Close
+    </span>
+  </form>
+
+  <div class="grid grid-cols-4 gap-6">
+    <app-item
+      *ngFor="let productParent of productList"
+      [productChild]="productParent"
+      (onDelete)="onDelete(productParent.id)"
+      (onUpdate)="handleUpdate(productParent)"
+    />
+  </div>
+</div>
+<app-footer />
