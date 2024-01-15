@@ -47,14 +47,14 @@ export class HomeComponent {
     });
   }
   getAll() {
-    this.productService.getProduct().subscribe((product) => {
-      return (this.productList = product);
+    this.productService.getProduct().subscribe((product: any) => {
+      return (this.productList = product.data);
     });
   }
   ngOnInit(): void {
     this.getAll();
   }
-  onDelete(id: number): void {
+  onDelete(id: string): void {
     this.productService
       .deleteProduct(id)
       .subscribe(
@@ -72,7 +72,7 @@ export class HomeComponent {
       if (this.userForm.valid) {
         const formData = this.userForm.value;
         this.productService
-          .updateProduct({ ...formData, id: this.dataUpdate.id })
+          .updateProduct({ ...formData, id: this.dataUpdate._id })
           .subscribe(() => {
             this.isModalVisible = !this.isModalVisible;
             this.userForm.reset();

@@ -114,7 +114,7 @@
     <app-item
       *ngFor="let productParent of productList"
       [productChild]="productParent"
-      (onDelete)="onDelete(productParent.id)"
+      (onDelete)="onDelete(productParent._id)"
       (onUpdate)="handleUpdate(productParent)"
     />
   </div>

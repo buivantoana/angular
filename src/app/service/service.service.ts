@@ -6,14 +6,18 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ServiceService {
-  private api = 'https://fakestoreapi.com/products';
+  private api =
+    'https://courageous-taiyaki-0f7607.netlify.app/.netlify/functions/api/product';
 
   constructor(private http: HttpClient) {}
 
   getProduct(): Observable<any> {
     return this.http.get<any>(this.api);
   }
-  deleteProduct(id: number) {
+  getOneProduct(id: string): Observable<any> {
+    return this.http.get<any>(`${this.api}/${id}`);
+  }
+  deleteProduct(id: string) {
     return this.http.delete(`${this.api}/${id}`);
   }
   addProduct(product: any) {
