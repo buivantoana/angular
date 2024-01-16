@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   FormBuilder,
@@ -7,39 +6,36 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ServiceService } from '../../../service/service.service';
+import { CategoryService } from '../../../../service/category.service';
 import { MessageService } from 'primeng/api';
+import { NgFor, NgIf } from '@angular/common';
 import { ToastModule } from 'primeng/toast';
 
-
 @Component({
-  selector: 'app-create',
+  selector: 'app-create-category',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgIf, ToastModule],
-  templateUrl: './create.component.html',
-  styleUrl: './create.component.css',
+  imports: [FormsModule, ReactiveFormsModule, NgFor, NgIf, ToastModule],
+  templateUrl: './create-category.component.html',
+  styleUrl: './create-category.component.css',
   providers: [MessageService],
 })
-export class CreateComponent {
+export class CreateCategoryComponent {
   userForm: FormGroup;
+
   constructor(
-    private productService: ServiceService,
+    private categoryService: CategoryService,
     private formBuilder: FormBuilder,
     private messageService: MessageService
   ) {
     this.userForm = this.formBuilder.group({
-      title: ['', Validators.required],
-      description: ['', Validators.required],
-      price: ['', Validators.required],
-      image: ['', Validators.required],
-      category: ['', Validators.required],
+      name: ['', Validators.required],
     });
   }
+
   onSubmit() {
     if (this.userForm.valid) {
       const formData = this.userForm.value;
-
-      this.productService.addProduct(formData).subscribe((data: any) => {
+      this.categoryService.addCategory(formData).subscribe((data: any) => {
         if (data.status === 0) {
           this.messageService.add({
             severity: 'success',

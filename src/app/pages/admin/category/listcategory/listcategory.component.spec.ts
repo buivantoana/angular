@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SuccessComponent } from './success.component';
+import { ListcategoryComponent } from './listcategory.component';
 
-describe('SuccessComponent', () => {
-  let component: SuccessComponent;
-  let fixture: ComponentFixture<SuccessComponent>;
+describe('ListcategoryComponent', () => {
+  let component: ListcategoryComponent;
+  let fixture: ComponentFixture<ListcategoryComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SuccessComponent]
+      imports: [ListcategoryComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(SuccessComponent);
+    fixture = TestBed.createComponent(ListcategoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

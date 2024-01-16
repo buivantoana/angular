@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -8,23 +8,34 @@ import {
   Validators,
 } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
-import { ServiceService } from '../../../service/service.service';
+import { ServiceService } from '../../../../service/service.service';
 import { MessageService } from 'primeng/api';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CategoryService } from '../../../../service/category.service';
+import { typeProduct } from '../../../../type/typeProduct';
 
 @Component({
   selector: 'app-update',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgIf, ToastModule],
+  imports: [FormsModule, ReactiveFormsModule, NgIf, NgFor, ToastModule],
   templateUrl: './update.component.html',
   styleUrl: './update.component.css',
   providers: [MessageService],
 })
 export class UpdateComponent {
   userForm: FormGroup;
-  dataupdate: any = {};
+  dataupdate: typeProduct = {
+    _id: '',
+    title: '',
+    price: 0,
+    description: '',
+    categoryId: '',
+    image: '',
+  };
+  categories: any = [];
   constructor(
     private productService: ServiceService,
+    private categoryService: CategoryService,
     private formBuilder: FormBuilder,
     private messageService: MessageService,
     private route: ActivatedRoute,
@@ -35,12 +46,15 @@ export class UpdateComponent {
       description: ['', Validators.required],
       price: ['', Validators.required],
       image: ['', Validators.required],
-      category: ['', Validators.required],
+      categoryId: ['', Validators.required],
     });
   }
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
+      this.categoryService.getCategory().subscribe((data: any) => {
+        this.categories = data.data;
+      });
       return this.productService.getOneProduct(id).subscribe((data) => {
         if (data.status === 0) {
           this.userForm.patchValue({
@@ -48,7 +62,7 @@ export class UpdateComponent {
             description: data.data.description,
             price: data.data.price,
             image: data.data.image,
-            category: data.data.category,
+            categoryId: data.data.categoryId._id,
           });
           this.dataupdate = data.data;
         }
