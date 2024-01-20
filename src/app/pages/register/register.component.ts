@@ -63,17 +63,17 @@ export class RegisterComponent {
               }, 1000);
             } else {
               this.messageService.add({
-                severity: 'success',
-                summary: 'Success',
+                severity: 'error',
+                summary: 'Error',
                 detail: data.message,
               });
             }
           });
       } else {
         this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Password khong giong nhau',
+          severity: 'error',
+          summary: 'Error',
+          detail: 'password khong giong nhau',
         });
       }
     }

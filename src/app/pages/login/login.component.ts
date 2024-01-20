@@ -53,8 +53,8 @@ export class LoginComponent {
           }, 1000);
         } else {
           this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
+            severity: 'error',
+            summary: 'Error',
             detail: data.message,
           });
         }
