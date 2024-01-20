@@ -1,26 +1,25 @@
-<div
-  class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
->
-  <a href="#">
+<li style="border: 1px solid grey; padding: 10px">
+  <a href="#" class="group block overflow-hidden">
     <img
-      class="p-8 rounded-t-lg h-96 object-contain mx-auto"
       [src]="productChild.image"
-      alt="product image"
+      alt=""
+      class="h-[250px] w-full transition duration-500 group-hover:scale-105 sm:h-[280px]"
     />
-  </a>
-  <div class="px-5 pb-5">
-    <a href="#">
-      <h5
-        class="h-24 text-[20px] font-semibold tracking-tight text-gray-900 dark:text-white"
+
+    <div class="relative bg-white pt-3">
+      <h3
+        class="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4"
       >
         {{ productChild.title }}
-      </h5>
-    </a>
+      </h3>
 
-    <div class="flex items-center justify-between">
-      <span class="text-1xl font-bold text-[red] dark:text-white"
-        >$ {{ productChild.price }}</span
-      >
+      <p class="mt-2">
+        <span class="sr-only"> Regular Price </span>
+
+        <span class="tracking-wider text-gray-900">
+          ${{ productChild.price }}
+        </span>
+      </p>
     </div>
-  </div>
-</div>
+  </a>
+</li>

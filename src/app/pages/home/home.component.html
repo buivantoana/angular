@@ -1,14 +1,25 @@
 <app-header />
 <div class="container mx-auto w-[1287px]">
   <div class="">
-    <div class="grid grid-cols-4 gap-6">
-      <app-item
-        *ngFor="let productParent of productList"
-        [productChild]="productParent"
-        (onDelete)="onDelete(productParent._id)"
-        (onUpdate)="handleUpdate(productParent)"
-      />
-    </div>
+    <section>
+      <div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+        <header class="text-center">
+          <h2 class="text-xl font-bold text-gray-900 sm:text-3xl">
+            Product Collection
+          </h2>
+        </header>
+
+        <ul class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <app-item
+            *ngFor="let productParent of productList"
+            [productChild]="productParent"
+            (onDelete)="onDelete(productParent._id)"
+            (onUpdate)="handleUpdate(productParent)"
+          />
+        </ul>
+      </div>
+    </section>
+    <div class="grid grid-cols-4 gap-6"></div>
   </div>
 </div>
 
