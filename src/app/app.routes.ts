@@ -9,10 +9,15 @@ import { ProductComponent } from './pages/admin/products/product/product.compone
 import { ListcategoryComponent } from './pages/admin/category/listcategory/listcategory.component';
 import { CreateCategoryComponent } from './pages/admin/category/create-category/create-category.component';
 import { UpdateCategoryComponent } from './pages/admin/category/update-category/update-category.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { authGuard } from './guard/auth.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   {
     path: 'admin',
     component: AdminComponent,
@@ -24,5 +29,6 @@ export const routes: Routes = [
       { path: 'category/create', component: CreateCategoryComponent },
       { path: 'category/:id', component: UpdateCategoryComponent },
     ],
+    canActivate: [authGuard],
   },
 ];
