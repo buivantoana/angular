@@ -1,7 +1,16 @@
-<h3 class="text-lg font-semibold text-gray-900 dark:text-white">Add User</h3>
 <p-toast></p-toast>
 <!-- Modal body -->
-<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+<form
+  [formGroup]="userForm"
+  style="
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid white;
+    padding: 20px;
+    margin-top: 30px;
+    border-radius: 10px;
+  "
+  (ngSubmit)="onSubmit()"
+>
   <div class="grid gap-4 mb-4 sm:grid-cols-2">
     <div class="sm:col-span-3">
       <label
@@ -14,8 +23,8 @@
         type="text"
         name="email"
         id="name"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-        placeholder="Type product title"
+        class="bg-gray-50 border w-[600px] border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+        placeholder="Email"
       />
       <div
         *ngIf="userForm.get('email')?.touched && userForm.get('email')?.errors?.['required']"
@@ -35,7 +44,7 @@
         name="password"
         id="name"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-        placeholder="Type product title"
+        placeholder="password"
       />
       <div
         *ngIf="userForm.get('password')?.touched && userForm.get('password')?.errors?.['required']"
@@ -55,7 +64,7 @@
         name="confirmpassword"
         id="name"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-        placeholder="Type product title"
+        placeholder="Confirmpassword"
       />
       <div
         *ngIf="userForm.get('confirmpassword')?.touched && userForm.get('confirmpassword')?.errors?.['required']"

@@ -17,3 +17,14 @@
 .p-multiselect {
   border: 1px solid grey !important;
 }
+.flex-1 {
+  /* display: flex;
+  justify-content: center; */
+}
+.flex {
+  display: flex;
+}
+.p-dock .p-dock-link {
+  height: 5rem !important;
+  width: 5rem !important;
+}

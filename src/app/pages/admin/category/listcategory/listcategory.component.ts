@@ -35,7 +35,7 @@ export class ListcategoryComponent {
   categoryList: any[] = [];
   first1: number = 0;
   count: number = 0;
-  rows1: number = 2;
+  rows1: number = 4;
   searchTerm: string = '';
   previousSearchTerm: string = '';
   checkData: boolean = false;
@@ -55,7 +55,7 @@ export class ListcategoryComponent {
     this.first1 = event.first;
     this.rows1 = event.rows;
     this.categoryService
-      .getPagiCategory({ page: event.first, size: 2 })
+      .getPagiCategory({ page: event.first, size: 4 })
       .subscribe((category: any) => {
         return (this.categoryList = category.data);
       });
@@ -65,7 +65,7 @@ export class ListcategoryComponent {
   }
   getAll(check?: any) {
     this.categoryService
-      .getPagiCategory({ page: check ? check : this.first1, size: 2 })
+      .getPagiCategory({ page: check ? check : this.first1, size: 4 })
       .subscribe((category: any) => {
         this.count = category.count;
         return (this.categoryList = category.data);
@@ -112,7 +112,7 @@ export class ListcategoryComponent {
           .getSearchCategory({
             search: search,
             page: this.first1,
-            size: 2,
+            size: 4,
           })
           .subscribe((data) => {
             if (data.status === 1) {

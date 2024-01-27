@@ -36,7 +36,7 @@ export class ListUserComponent {
   userList: any[] = [];
   first1: number = 0;
   count: number = 0;
-  rows1: number = 2;
+  rows1: number = 4;
   searchTerm: string = '';
   previousSearchTerm: string = '';
   checkData: boolean = false;
@@ -56,7 +56,7 @@ export class ListUserComponent {
     this.first1 = event.first;
     this.rows1 = event.rows;
     this.userService
-      .getPagiUser({ page: event.first, size: 2 })
+      .getPagiUser({ page: event.first, size: 4 })
       .subscribe((category: any) => {
         return (this.userList = category.data);
       });
@@ -66,7 +66,7 @@ export class ListUserComponent {
   }
   getAll(check?: any) {
     this.userService
-      .getPagiUser({ page: check ? check : this.first1, size: 2 })
+      .getPagiUser({ page: check ? check : this.first1, size: 4 })
       .subscribe((data: any) => {
         console.log(data);
         this.count = data.count;
@@ -105,7 +105,7 @@ export class ListUserComponent {
           .getSearchUser({
             search: search,
             page: this.first1,
-            size: 5,
+            size: 4,
           })
           .subscribe((data) => {
             if (data.status === 1) {

@@ -10,7 +10,11 @@
   <span>Are you sure you want to delete this product?</span>
 </p-confirmDialog>
 
-<div *ngIf="!checkData" class="rounded-lg border w-[800px] border-gray-200">
+<div
+  *ngIf="!checkData"
+  style="background-color: rgba(255, 255, 255, 0.1); padding: 20px"
+  class="rounded-lg border w-[1200px] border-gray-200"
+>
   <div class="overflow-x-auto rounded-t-lg">
     <div class="flex justify-between items-center">
       <button
@@ -18,7 +22,7 @@
         type="button"
         class="text-white m-[20px] bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
       >
-        Add Product
+        Add Category
       </button>
       <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="w-[300px]">
         <label
@@ -63,7 +67,10 @@
         </div>
       </form>
     </div>
-    <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+    <table
+      style="border-radius: 10px"
+      class="min-w-full divide-y-2 my-[20px] divide-gray-200 bg-white text-sm"
+    >
       <thead class="ltr:text-left rtl:text-right">
         <tr>
           <th
@@ -96,7 +103,7 @@
               <sub>({{ category.products.length }})</sub>
             </a>
           </th>
-          <td class="flex justify-center items-center mt-2">
+          <td class="flex justify-center items-center my-3">
             <button
               (click)="deleteCategory(category._id)"
               class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
@@ -132,7 +139,11 @@
     </div>
   </div>
 </div>
-<div *ngIf="checkData" class="rounded-lg border w-[800px] border-gray-200">
+<div
+  *ngIf="checkData"
+  style="background-color: rgba(255, 255, 255, 0.1); padding: 20px"
+  class="rounded-lg border w-[1200px] border-gray-200"
+>
   <div class="overflow-x-auto rounded-t-lg">
     <div class="flex justify-between items-center">
       <button
@@ -185,7 +196,10 @@
         </div>
       </form>
     </div>
-    <table class="min-w-full table-auto divide-gray-200 bg-white text-sm">
+    <table
+      style="border-radius: 10px"
+      class="min-w-full divide-y-2 my-[20px] divide-gray-200 bg-white text-sm"
+    >
       <thead class="ltr:text-left rtl:text-right">
         <tr>
           <th
@@ -218,7 +232,7 @@
               <sub>({{ category.products.length }})</sub>
             </a>
           </th>
-          <td class="flex justify-center items-center mt-2">
+          <td class="flex justify-center items-center my-3">
             <button
               (click)="deleteCategory(category._id)"
               class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"

@@ -43,7 +43,7 @@ export class ProductComponent implements DoCheck {
   first1: number = 0;
   count: number = 0;
   searchTerm: string = '';
-  rows1: number = 2;
+  rows1: number = 4;
   previousSearchTerm: string = '';
   checkData: boolean = false;
   cities!: any[];
@@ -74,7 +74,7 @@ export class ProductComponent implements DoCheck {
 
     if (id) {
       this.productService
-        .getCategoryProduct({ id: id, page: event.first, size: 2 })
+        .getCategoryProduct({ id: id, page: event.first, size: 4 })
         .subscribe((product: any) => {
           this.count = product.count;
           return (this.productList = product.data);
@@ -105,7 +105,7 @@ export class ProductComponent implements DoCheck {
         });
     } else {
       this.productService
-        .getProduct({ page: event.first, size: 2 })
+        .getProduct({ page: event.first, size: 4 })
         .subscribe((product: any) => {
           this.count = product.count;
           return (this.productList = product.data);
@@ -120,7 +120,7 @@ export class ProductComponent implements DoCheck {
 
     if (id) {
       this.productService
-        .getCategoryProduct({ id: id, page: this.first1, size: 2 })
+        .getCategoryProduct({ id: id, page: this.first1, size: 4 })
         .subscribe((product: any) => {
           this.count = product.count;
           this.form = new FormGroup({
@@ -132,7 +132,7 @@ export class ProductComponent implements DoCheck {
         });
     } else {
       this.productService
-        .getProduct({ page: check ? check : this.first1, size: 2 })
+        .getProduct({ page: check ? check : this.first1, size: 4 })
         .subscribe((product: any) => {
           this.count = product.count;
           return (this.productList = product.data);
@@ -145,7 +145,7 @@ export class ProductComponent implements DoCheck {
       this.productService
         .getFilterProduct({
           page: this.first1,
-          size: 2,
+          size: 4,
           id: selectedCities?.map((item: any) => item.code),
         })
         .subscribe((data) => {
@@ -155,7 +155,7 @@ export class ProductComponent implements DoCheck {
         });
     } else {
       this.productService
-        .getProduct({ page: 0, size: 2 })
+        .getProduct({ page: 0, size: 4 })
         .subscribe((product: any) => {
           this.count = product.count;
           return (this.productList = product.data);
@@ -201,7 +201,7 @@ export class ProductComponent implements DoCheck {
           .getSearchProduct({
             search: search,
             page: this.first1,
-            size: 2,
+            size: 4,
           })
           .subscribe((data) => {
             if (data.status === 1) {
@@ -238,7 +238,7 @@ export class ProductComponent implements DoCheck {
       this.productService
         .getFilterProduct({
           page: 0,
-          size: 2,
+          size: 4,
           id: selectedCities?.map((item: any) => item.code),
         })
         .subscribe((data) => {
