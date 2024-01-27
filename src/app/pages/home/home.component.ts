@@ -47,9 +47,9 @@ export class HomeComponent {
     });
   }
   getAll() {
-    this.productService.getProduct().subscribe((product: any) => {
-      return (this.productList = product.data);
-    });
+    // this.productService.getProduct().subscribe((product: any) => {
+    //   return (this.productList = product.data);
+    // });
   }
   ngOnInit(): void {
     this.getAll();

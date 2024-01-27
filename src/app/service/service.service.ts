@@ -11,11 +11,29 @@ export class ServiceService {
 
   constructor(private http: HttpClient) {}
 
-  getProduct(): Observable<any> {
-    return this.http.get<any>(this.api);
+  getProduct(page: any): Observable<any> {
+    return this.http.get<any>(
+      `${this.api}?page=${page.page}&size=${page.size}`
+    );
   }
   getOneProduct(id: string): Observable<any> {
-    return this.http.get<any>(`${this.api}/${id}`);
+    return this.http.get<any>(`${this.api}/detail/${id}`);
+  }
+  getCategoryProduct(id: any): Observable<any> {
+    return this.http.get<any>(
+      `${this.api}/category/${id.id}?page=${id.page}&size=${id.size}`
+    );
+  }
+  getSearchProduct(id: any): Observable<any> {
+    return this.http.get<any>(
+      `${this.api}/search/${id.search}?page=${id.page}&size=${id.size}`
+    );
+  }
+  getFilterProduct(id: any): Observable<any> {
+    return this.http.post<any>(
+      `${this.api}/filter?page=${id.page}&size=${id.size}`,
+      { id: id.id }
+    );
   }
   deleteProduct(id: string) {
     return this.http.delete(`${this.api}/${id}`);
