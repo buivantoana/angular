@@ -1,5 +1,12 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component, DoCheck, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  DoCheck,
+  ElementRef,
+  OnChanges,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
@@ -18,7 +25,16 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { CategoryService } from '../../../../service/category.service';
-
+import {
+  catchError,
+  debounceTime,
+  distinctUntilChanged,
+  of,
+  switchMap,
+  throwError,
+} from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { ScrollerModule } from 'primeng/scroller';
 @Component({
   selector: 'app-product',
   standalone: true,
@@ -32,6 +48,7 @@ import { CategoryService } from '../../../../service/category.service';
     ReactiveFormsModule,
     NgIf,
     MultiSelectModule,
+    ScrollerModule,
   ],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css',
@@ -51,6 +68,11 @@ export class ProductComponent implements DoCheck {
   form = new FormGroup({
     selectedCities: new FormControl([]),
   });
+
+  searchControl = new FormControl();
+  serachDebouce: any = [];
+  modalSearchDebouce: boolean = false;
+  loading = false;
   constructor(
     private productService: ServiceService,
     private categoryService: CategoryService,
@@ -63,8 +85,56 @@ export class ProductComponent implements DoCheck {
     this.userForm = this.formBuilder.group({
       search: [''],
     });
+    this.searchControl.valueChanges
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        switchMap((term) => this.searchGetCall(term))
+      )
+      .subscribe((results) => {
+        if (results.status === 1) {
+          this.serachDebouce = [];
+          this.loading = false;
+        } else {
+          this.loading = false;
+          this.serachDebouce = results.data;
+        }
+      });
   }
 
+  onInputFocus() {
+    this.loading = true;
+    this.modalSearchDebouce = true;
+    this.productService
+      .getProduct({ page: 0, size: 10 })
+      .subscribe((product: any) => {
+        this.serachDebouce = product.data;
+        this.loading = false;
+      });
+    return true;
+  }
+  onInputBlur() {
+    this.modalSearchDebouce = false;
+    return (this.serachDebouce = []);
+  }
+  searchGetCall(term: string) {
+    this.loading = true;
+    if (term === '') {
+      this.productService
+        .getProduct({ page: 0, size: 10 })
+        .subscribe((product: any) => {
+          return (this.serachDebouce = product.data);
+        });
+      // return of([]);
+    }
+
+    return this.productService.getSearchDebouceProduct({ search: term }).pipe(
+      catchError((error) => {
+        console.error('Error:', error);
+        return throwError(error);
+      })
+    );
+  }
   onPageChange1(event: any) {
     this.first1 = event.first;
     this.rows1 = event.rows;
@@ -128,6 +198,7 @@ export class ProductComponent implements DoCheck {
               { name: product.data[0].categoryId.name, code: id },
             ]),
           });
+
           return (this.productList = product.data);
         });
     } else {
@@ -135,6 +206,7 @@ export class ProductComponent implements DoCheck {
         .getProduct({ page: check ? check : this.first1, size: 4 })
         .subscribe((product: any) => {
           this.count = product.count;
+
           return (this.productList = product.data);
         });
     }

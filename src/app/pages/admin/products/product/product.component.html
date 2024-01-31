@@ -62,6 +62,10 @@
             </svg>
           </div>
           <input
+            (focus)="onInputFocus()"
+            (blur)="onInputBlur()"
+            autocomplete="off"
+            [formControl]="searchControl"
             formControlName="search"
             type="text"
             id="default-search"
@@ -75,9 +79,67 @@
           >
             Search
           </button>
+          <div
+            *ngIf="modalSearchDebouce"
+            class="absolute w-[300px] max-w-sm border border-gray-600 bg-gray-100 px-4 py-8 sm:px-6 lg:px-8"
+            aria-modal="true"
+            role="dialog"
+            tabindex="-1"
+            style="top: 50px; left: 0"
+          >
+            <div
+              *ngIf="loading"
+              class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+              role="status"
+            >
+              <span
+                class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+                >Loading...</span
+              >
+            </div>
+            <div *ngIf="!loading && serachDebouce[0]" class="mt-4 space-y-6">
+              <ul
+                class="space-y-4"
+                style="max-height: 200px; overflow-y: scroll"
+              >
+                <li
+                  *ngFor="let product of serachDebouce"
+                  class="flex items-center gap-4"
+                >
+                  <img
+                    [src]="product.image"
+                    alt=""
+                    class="h-16 w-16 rounded object-cover"
+                  />
+
+                  <div>
+                    <h3 class="text-sm text-gray-900">{{ product.title }}</h3>
+
+                    <dl class="mt-0.5 space-y-px text-[10px] text-gray-600">
+                      <div>
+                        <dt class="inline">Category:</dt>
+                        <dd class="inline">
+                          {{ product.categoryId.name }}
+                        </dd>
+                      </div>
+
+                      <div>
+                        <dt class="inline">Price:</dt>
+                        <dd class="inline">${{ product.price }}</dd>
+                      </div>
+                    </dl>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div *ngIf="!loading" class="">
+              <h4 *ngIf="!serachDebouce[0]">No Result</h4>
+            </div>
+          </div>
         </div>
       </form>
     </div>
+
     <table
       style="border-radius: 10px; margin: 20px 0"
       class="min-w-full divide-y-2 bg-white text-sm"

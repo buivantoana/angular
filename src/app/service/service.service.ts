@@ -29,6 +29,11 @@ export class ServiceService {
       `${this.api}/search/${id.search}?page=${id.page}&size=${id.size}`
     );
   }
+  getSearchDebouceProduct(id: any): Observable<any> {
+    return this.http.get<any>(
+      `${this.api}/searchdebouce?search=${id.search}`
+    );
+  }
   getFilterProduct(id: any): Observable<any> {
     return this.http.post<any>(
       `${this.api}/filter?page=${id.page}&size=${id.size}`,
