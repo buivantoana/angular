@@ -294,9 +294,9 @@ export class ProductComponent implements DoCheck {
   onSubmit() {
     this.router.navigate([
       '/admin/products',
-      { search: this.userForm.value.search },
+      { search: this.searchControl.value },
     ]);
-    this.searchTerm = this.userForm.value.search;
+    this.searchTerm = this.searchControl.value;
     this.userForm.reset();
     this.first1 = 0;
     setTimeout(() => {

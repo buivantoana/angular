@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { join } from 'node:path';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -9,11 +10,20 @@ export class ServiceService {
   private api =
     'https://courageous-taiyaki-0f7607.netlify.app/.netlify/functions/api/product';
 
-  constructor(private http: HttpClient) {}
+  headers: any;
+  constructor(private http: HttpClient) {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.headers = new HttpHeaders({
+        Authorization: `Bearer ${JSON.parse(token).token}`,
+      });
+    }
+  }
 
   getProduct(page: any): Observable<any> {
     return this.http.get<any>(
-      `${this.api}?page=${page.page}&size=${page.size}`
+      `${this.api}?page=${page.page}&size=${page.size}`,
+      { headers: this.headers }
     );
   }
   getOneProduct(id: string): Observable<any> {
@@ -21,32 +31,37 @@ export class ServiceService {
   }
   getCategoryProduct(id: any): Observable<any> {
     return this.http.get<any>(
-      `${this.api}/category/${id.id}?page=${id.page}&size=${id.size}`
+      `${this.api}/category/${id.id}?page=${id.page}&size=${id.size}`,
+      { headers: this.headers }
     );
   }
   getSearchProduct(id: any): Observable<any> {
     return this.http.get<any>(
-      `${this.api}/search/${id.search}?page=${id.page}&size=${id.size}`
+      `${this.api}/search/${id.search}?page=${id.page}&size=${id.size}`,
+      { headers: this.headers }
     );
   }
   getSearchDebouceProduct(id: any): Observable<any> {
-    return this.http.get<any>(
-      `${this.api}/searchdebouce?search=${id.search}`
-    );
+    return this.http.get<any>(`${this.api}/searchdebouce?search=${id.search}`, {
+      headers: this.headers,
+    });
   }
   getFilterProduct(id: any): Observable<any> {
     return this.http.post<any>(
       `${this.api}/filter?page=${id.page}&size=${id.size}`,
-      { id: id.id }
+      { id: id.id },
+      { headers: this.headers }
     );
   }
   deleteProduct(id: string) {
-    return this.http.delete(`${this.api}/${id}`);
+    return this.http.delete(`${this.api}/${id}`, { headers: this.headers });
   }
   addProduct(product: any) {
-    return this.http.post(`${this.api}`, product);
+    return this.http.post(`${this.api}`, product, { headers: this.headers });
   }
   updateProduct(product: any) {
-    return this.http.put(`${this.api}/${product.id}`, product);
+    return this.http.put(`${this.api}/${product.id}`, product, {
+      headers: this.headers,
+    });
   }
 }
